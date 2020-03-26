@@ -9,7 +9,7 @@ export default ({navigation}) => {
             return null;
         }
         return (
-            <View key={item}>
+            <View key={item.route}>
                 <Text 
                     style={styles.navigationItemTitle} 
                     onPress={() => navigation.navigate(item.route)}

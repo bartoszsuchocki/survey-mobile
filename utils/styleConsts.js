@@ -1,10 +1,13 @@
 
 const styleConsts = {
     FONT_PRIMARY_COLOR: '#FFF',
+    INPUT_BACKGROUND_COLOR: '#2F303A',
     SECONDARY_COLOR: '#EB5757',
     SHADOW_COLOR: '#FFF',
     TILE_BACKGROUND_COLOR: '#202027'
 }
+
+export default styleConsts;
 
 export const commonStyles = {
     buttonSmallInversed: {
@@ -23,5 +26,3 @@ export const commonStyles = {
         lineHeight: 21
     }
 }
-
-export default styleConsts;

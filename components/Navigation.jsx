@@ -5,42 +5,51 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import Home from './Home';
 import PrepareSurveyForm from './PrepareSurveyForm';
-import SurveysView from './SurveysView';
+import SelectSurveys from './SelectSurveys';
 import labels from '../utils/labels';
+import SurveyView from './SurveyView';
 
-const HOME_SCREEN = {
+export const HOME_SCREEN = {
     component: Home,
     displayOnMenuList: false, 
     route: 'home', 
     title: labels.HOME
 }
 
-const ADD_SURVEY_SCREEN = {
+export const ADD_SURVEY_SCREEN = {
     component: PrepareSurveyForm, 
     displayOnMenuList: true, 
     route: 'newSurvey', 
     title: labels.ADD_NEW_SURVEY
 }
 
-const SELECT_SURVEYS_SCREEN = {
-    component: SurveysView, 
+export const SELECT_SURVEYS_SCREEN = {
+    component: SelectSurveys, 
     displayOnMenuList: true, 
     route: 'selectSurveys', 
     title: labels.SELECT_SURVEYS
 }
 
-const LOG_OUT_SCREEN = {
+export const LOG_OUT_SCREEN = {
     component: Home, 
     displayOnMenuList: true, 
     route: 'logOut', 
     title: labels.LOG_OUT
 }
 
+export const VIEW_SURVEY_SCREEN = {
+  component: SurveyView, 
+  displayOnMenuList: false, 
+  route: 'survey', 
+  title: labels.SELECT_SURVEYS
+}
+
 export const NAVIGATION_ITEMS = [
     HOME_SCREEN,
     ADD_SURVEY_SCREEN,
     SELECT_SURVEYS_SCREEN,
-    LOG_OUT_SCREEN
+    LOG_OUT_SCREEN,
+    VIEW_SURVEY_SCREEN
 ];
 
 const Stack = createStackNavigator();

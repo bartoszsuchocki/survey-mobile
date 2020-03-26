@@ -3,7 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import labels from '../utils/labels';
 import styleConsts, {commonStyles} from '../utils/styleConsts';
 
-export default ({survey}) => {
+export default ({onDelete, onPublish, onView, survey}) => {
     return (
         <View style={styles.surveysContainer}>
             <View style={styles.survey}>
@@ -19,19 +19,28 @@ export default ({survey}) => {
                         <Text style={styles.propertyName}>{labels.START_DATE}</Text>
                         <Text style={styles.propertyValue}>{survey.startDate}</Text>
                     </View>
-                    <View style={styles.descriptionContainer}>
+                    <View>
                         <Text style={styles.propertyName}>{labels.DESCRIPTION}</Text>
                         <Text style={styles.propertyValue}>{survey.description}</Text>
                     </View>
                 </View>
                 <View style={styles.actionButtons}>
-                    <TouchableOpacity style={commonStyles.buttonSmallInversed}>
+                    <TouchableOpacity 
+                        onPress={onView}
+                        style={commonStyles.buttonSmallInversed}
+                    >
                         <Text style={commonStyles.buttonSmallInversedText}>{labels.VIEW}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={commonStyles.buttonSmallInversed}>
+                    <TouchableOpacity 
+                        onPress={onPublish}
+                        style={commonStyles.buttonSmallInversed}
+                    >
                         <Text style={commonStyles.buttonSmallInversedText}>{labels.PUBLISH}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={commonStyles.buttonSmallInversed}>
+                    <TouchableOpacity 
+                        onPress={onDelete}
+                        style={commonStyles.buttonSmallInversed}
+                    >
                         <Text style={commonStyles.buttonSmallInversedText}>{labels.DELETE}</Text>
                     </TouchableOpacity>
                 </View>
@@ -46,10 +55,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-evenly",
         marginVertical: 30
-    },
-    
-    descriptionContainer: {
-
     },
     
     header: {
