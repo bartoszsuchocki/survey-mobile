@@ -1,37 +1,54 @@
 import React from 'react';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { STextInput, STextArea } from './common/Inputs';
 import { CustomIcon, customIconLabels } from './common/CustomIcon';
+import labels from '../utils/labels';
+import { createEmptyAnswer } from '../utils/emptyObjectsGenerator';
 
-export default ({onQuestionEdit, question}) => {
+export default ({onEdit, onRemove, question}) => {
 
     const addAnswer = () => {
-        const editedQuestion = {...question};
-        const newAnswer = {
-            number: question.answers ? question.answers.length : 0,
-            content: ''
-        };
-        editedQuestion.answers = [...question.answers, newAnswer];
-        onQuestionEdit(editedQuestion);
+        const newAnswer = createEmptyAnswer(question.answers ? question.answers.length : 0);
+        onEdit({...question, answers: [...question.answers, newAnswer]});
     };
 
     const editAnswer = (number, newContent) => {
-        const editedQuestion = {...question};
-        editedQuestion.answers[number] = {...editedQuestion.answers[number], content: newContent};
-        onQuestionEdit(editedQuestion);
-    } 
+        const answers = question.answers.map(answer => (
+            answer.number === number
+                ? {...answer, content: newContent}
+                : answer
+        ));
+        onEdit({...question, answers});
+    }
+
+    const removeAnswer = (answerNumber) => {
+        const answers = question.answers
+            .filter(answer => answer.number !== answerNumber)
+            .map((answer, index) => ({...answer, number: index}));
+
+        onEdit({...question, answers})
+    }
 
     return (
-        <View>
+        <View style={styles.question}>
+            <View style={styles.quitIconContainer}>
+                <CustomIcon
+                    iconLabel={customIconLabels.QUIT}
+                    onClick={onRemove}
+                />
+            </View>
             <STextArea
-                onChangeText={text => onQuestionEdit({...question, content: text})}
+                label={labels.QUESTION}
+                onChangeText={text => onEdit({...question, content: text})}
+                style={styles.content}
                 value={question.content}
             />
-            {question.answers.map(answer => (
-                <STextInput
+            {question.answers && question.answers.map(answer => (
+                <Answer
+                    answer={answer}
                     key={answer.number}
-                    onChangeText={text => editAnswer(answer.number, text)}
-                    value={answer.content}
+                    onEdit={text => editAnswer(answer.number, text)}
+                    onRemove={removeAnswer}
                 />
             ))}
             <CustomIcon 
@@ -41,3 +58,44 @@ export default ({onQuestionEdit, question}) => {
         </View>
     )
 }
+
+const Answer = ({answer, onEdit, onRemove}) => (
+    <View style={styles.answer}>
+        <STextInput
+            onChangeText={onEdit}
+            style={styles.answerInput}
+            value={answer.content}
+        />
+        <CustomIcon 
+            iconLabel={customIconLabels.TRASH}
+            onClick={()=>onRemove(answer.number)}
+        />
+    </View>
+)
+
+const styles = StyleSheet.create({
+    answer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 10
+    },
+
+    answerInput: {
+        flex: 1
+    },
+
+    question: {
+        borderWidth: 1,
+        borderColor: 'rgba(235, 87, 87, 0.25)',
+        padding: 10
+    },
+
+    content: {
+        marginBottom: 10,
+    },
+
+    quitIconContainer: {
+        alignItems: 'flex-end',
+        paddingBottom: 5
+    }
+});

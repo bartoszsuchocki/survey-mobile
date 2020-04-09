@@ -2,7 +2,7 @@ import React from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 import Background from './Background';
 import Survey from './SurveyTile';
-import { VIEW_SURVEY_SCREEN } from './Navigation';
+import { SHOW_SURVEY_SCREEN, FILL_SURVEY_SCREEN } from './Navigation';
 
 //BARTDBG change that mock while later development
 const surveys = [
@@ -21,43 +21,43 @@ const surveys = [
                 {id: 'asomeid6', number: 2, content: 'Strangers'},
             ]}
         ],
-        questionsNumber: 10,
         startDate: '22.01.2020'
     },
     {
         title: 'Some super survey on peoples hobbies2',
         description: 'This survey will check which hobby is the most popular through people in our country',
         questions: [],
-        questionsNumber: 10,
         startDate: '22.01.2020'
     },
     {
         title: 'Some super survey on peoples hobbies3',
         description: 'This survey will check which hobby is the most popular through people in our country',
         questions: [],
-        questionsNumber: 10,
         startDate: '22.01.2020'
     },
     {
         title: 'Some super survey on peoples hobbies4',
         description: 'This survey will check which hobby is the most popular through people in our country',
         questions: [],
-        questionsNumber: 10,
         startDate: '22.01.2020'
     }
 ]
 
 export default ({navigation}) => {
     const handleSurveyView = (survey) => {
-        navigation.navigate(VIEW_SURVEY_SCREEN.route, {survey});
+        navigation.navigate(SHOW_SURVEY_SCREEN.route, {survey});
     }
 
-    const handleSurveyPublish = (survey) => {
+    const handleShowResults = (survey) => {
         //todo
     }
 
     const handleSurveyDelete = (survey) => {
         //todo
+    }
+
+    const handleFillRequest = (survey) => {
+        navigation.navigate(FILL_SURVEY_SCREEN.route, {survey});
     }
     
     return (
@@ -68,7 +68,8 @@ export default ({navigation}) => {
                 renderItem={({item}) => (
                     <Survey 
                         onDelete={ () => handleSurveyDelete(item) }
-                        onPublish={ () => handleSurveyPublish(item) }
+                        onFill={ () => handleFillRequest(item) }
+                        onShowResults={ () => handleShowResults(item) }
                         onView={ () => handleSurveyView(item) }
                         survey={item} 
                     />

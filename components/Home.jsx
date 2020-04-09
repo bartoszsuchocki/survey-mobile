@@ -5,11 +5,8 @@ import { NAVIGATION_ITEMS } from './Navigation';
 
 export default ({navigation}) => {
     const renderNavigationItem = item => {
-        if(!item.displayOnMenuList) {
-            return null;
-        }
         return (
-            <View key={item.route}>
+            <View>
                 <Text 
                     style={styles.navigationItemTitle} 
                     onPress={() => navigation.navigate(item.route)}
@@ -20,10 +17,13 @@ export default ({navigation}) => {
         );
     }
 
+    const menuItems = NAVIGATION_ITEMS.filter(item => item.displayOnMenuList);
+
     return (
         <Background>
             <FlatList
-                data={NAVIGATION_ITEMS}
+                data={menuItems}
+                keyExtractor={navigationItem => navigationItem.route}
                 renderItem={({item}) => renderNavigationItem(item) }
             />
         </Background>

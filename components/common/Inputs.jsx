@@ -1,24 +1,47 @@
 import React from 'react';
-import { StyleSheet, TextInput } from 'react-native';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
 import styleConsts from '../../utils/styleConsts';
 
 export const STextInput = (props) => (
-    <TextInput
-        {...props}
-        style={styles.textInput}
-    />
+    <View style={props.style}>
+        { props.label &&
+            <Text style={styles.label}>
+                {props.label}
+            </Text>
+        }
+        <TextInput
+            {...props}        
+            style={styles.textInput}
+        />
+    </View>
 )
 
 
 export const STextArea = (props) => (
-    <TextInput
-        multiline={true}
-        style={styles.textArea}
-        {...props}
-    />
+    <View>
+        { props.label &&
+            <Text style={styles.label}>
+                {props.label}
+            </Text>
+        }
+        <TextInput
+            multiline={true}
+            {...props}
+            style={[
+                props.style,
+                styles.textArea
+            ]}
+        />
+    </View>
 )
 
 const styles = StyleSheet.create({
+    
+    label: {
+        fontSize: 14,
+        color: styleConsts.FONT_PRIMARY_COLOR,
+    },
+    
     textInput: {
         backgroundColor: styleConsts.INPUT_BACKGROUND_COLOR,
         color: styleConsts.FONT_PRIMARY_COLOR,

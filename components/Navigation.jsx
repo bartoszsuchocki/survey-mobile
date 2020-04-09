@@ -4,10 +4,28 @@ import { StyleSheet, Text, View } from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import Home from './Home';
-import PrepareSurveyForm from './PrepareSurveyForm';
+import PrepareSurveyForm from './PrepareSurveyScreen';
 import SelectSurveys from './SelectSurveys';
 import labels from '../utils/labels';
 import SurveyView from './SurveyView';
+import LoginForm from './LoginForm';
+import RegistrationForm from './RegistrationForm';
+import ShowSurveyScreen from './ShowSurveyScreen';
+import FillSurveyScreen from './FillSurveyScreen';
+
+export const REGISTRATION_SCREEN = {
+  component: RegistrationForm,
+  displayOnMenuList: false,
+  route: 'register',
+  title: labels.SING_UP
+}
+
+export const LOGIN_SCREEN = {
+    component: LoginForm,
+    displayOnMenuList: false,
+    route: 'login',
+    title: labels.LOG_IN
+}
 
 export const HOME_SCREEN = {
     component: Home,
@@ -31,25 +49,35 @@ export const SELECT_SURVEYS_SCREEN = {
 }
 
 export const LOG_OUT_SCREEN = {
-    component: Home, 
+    component: LoginForm, 
     displayOnMenuList: true, 
     route: 'logOut', 
     title: labels.LOG_OUT
 }
 
-export const VIEW_SURVEY_SCREEN = {
-  component: SurveyView, 
+export const SHOW_SURVEY_SCREEN = {
+  component: ShowSurveyScreen, 
   displayOnMenuList: false, 
   route: 'survey', 
-  title: labels.SELECT_SURVEYS
+  title: labels.SURVEY
+}
+
+export const FILL_SURVEY_SCREEN = {
+  component: FillSurveyScreen, 
+  displayOnMenuList: false, 
+  route: 'fill', 
+  title: labels.FILL_SURVEY
 }
 
 export const NAVIGATION_ITEMS = [
+    LOGIN_SCREEN,
+    REGISTRATION_SCREEN,
     HOME_SCREEN,
     ADD_SURVEY_SCREEN,
     SELECT_SURVEYS_SCREEN,
     LOG_OUT_SCREEN,
-    VIEW_SURVEY_SCREEN
+    SHOW_SURVEY_SCREEN,
+    FILL_SURVEY_SCREEN
 ];
 
 const Stack = createStackNavigator();

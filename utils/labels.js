@@ -1,22 +1,35 @@
 const labels = {
     ADD_NEW_SURVEY: 'Add New Survey',
     ADD_QUESTION: 'Add Question',
+    CANCEL: 'Cancel',
+    CREATE_ACCOUNT: 'Create a new account',
     DELETE: 'Delete',
     DESCRIPTION: 'Description',
     EDIT_SURVEY: 'Edit The Survey',
+    FILL: 'Fill',
     FILL_SURVEY: 'Fill In The Survey',
     HOME : 'Home',
+    LOG_IN: 'Log in',
     LOG_OUT: 'Log Out',
+    MAIL: 'Email',
+    NAME: 'Name',
+    PASSWORD: 'Password',
     PREPARE_SURVEY : 'Prepare The Survey',
     PUBLISH: 'Publish',
+    QUESTION: 'Question',
     QUESTIONS: 'Questions',
+    RESULTS: 'Results',
+    SAVE: 'Save',
     SELECT_SURVEYS : 'Select Surveys',
     SIGN_IN: 'Sign In',
+    SING_UP: 'Sign up',
     START_DATE: 'Start Date',
     SUBMIT: 'Submit',
+    SURVEY: 'Survey',
     SURVEYS: 'Surveys',
     TITLE: 'Title',
-    VIEW: 'View'
+    VIEW: 'View',
+    WELCOME_MESSAGE: 'Welcome to the SurveyApp'
 }
 
 export default labels;

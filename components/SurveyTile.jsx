@@ -3,7 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import labels from '../utils/labels';
 import styleConsts, {commonStyles} from '../utils/styleConsts';
 
-export default ({onDelete, onPublish, onView, survey}) => {
+export default ({adminVersion=false, onDelete, onFill, onShowResults, onView, survey}) => {
     return (
         <View style={styles.surveysContainer}>
             <View style={styles.survey}>
@@ -24,30 +24,67 @@ export default ({onDelete, onPublish, onView, survey}) => {
                         <Text style={styles.propertyValue}>{survey.description}</Text>
                     </View>
                 </View>
-                <View style={styles.actionButtons}>
-                    <TouchableOpacity 
-                        onPress={onView}
-                        style={commonStyles.buttonSmallInversed}
-                    >
-                        <Text style={commonStyles.buttonSmallInversedText}>{labels.VIEW}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity 
-                        onPress={onPublish}
-                        style={commonStyles.buttonSmallInversed}
-                    >
-                        <Text style={commonStyles.buttonSmallInversedText}>{labels.PUBLISH}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity 
-                        onPress={onDelete}
-                        style={commonStyles.buttonSmallInversed}
-                    >
-                        <Text style={commonStyles.buttonSmallInversedText}>{labels.DELETE}</Text>
-                    </TouchableOpacity>
-                </View>
+                {adminVersion
+                    ? <AdminButtonPanel 
+                        onDelete={onDelete}
+                        onShowResults={onShowResults}
+                        onView={onView}
+                        style={styles.actionButtons}
+                    />
+                    : <StandardButtonPanel
+                        onShowResults={onShowResults}
+                        onFill={onFill}
+                        style={styles.actionButtons}
+                    />
+                }
+                
             </View>
         </View>
     );
 }
+
+const AdminButtonPanel = ({onDelete, onShowResults, onView, style}) => (
+    <View style={style}>
+        <TouchableOpacity 
+            onPress={onView}
+            style={[commonStyles.button, commonStyles.buttonSmall, commonStyles.buttonInversed]}
+        >
+            <Text style={commonStyles.buttonText}>{labels.VIEW}</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity 
+            onPress={onShowResults}
+            style={[commonStyles.button, commonStyles.buttonSmall, commonStyles.buttonInversed]}
+        >
+            <Text style={commonStyles.buttonText}>{labels.RESULTS}</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity 
+            onPress={onDelete}
+            style={[commonStyles.button, commonStyles.buttonSmall, commonStyles.buttonInversed]}
+        >
+            <Text style={commonStyles.buttonText}>{labels.DELETE}</Text>
+        </TouchableOpacity>
+    </View>
+);
+
+const StandardButtonPanel = ({onFill, onShowResults, style}) => (
+    <View style={style}>
+        <TouchableOpacity 
+            onPress={onFill}
+            style={[commonStyles.button, commonStyles.buttonSmall, commonStyles.buttonInversed]}
+        >
+            <Text style={commonStyles.buttonText}>{labels.FILL}</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity 
+            onPress={onShowResults}
+            style={[commonStyles.button, commonStyles.buttonSmall, commonStyles.buttonInversed]}
+        >
+            <Text style={commonStyles.buttonText}>{labels.RESULTS}</Text>
+        </TouchableOpacity>
+    </View>
+);
 
 const styles = StyleSheet.create({
     
