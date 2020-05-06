@@ -1,10 +1,11 @@
 import React from 'react';
-import { View } from 'react-native';
 import Svg, { ClipPath, Defs, G, Path, Rect } from 'react-native-svg'; 
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export const customIconLabels = {
     ADD : 'add',
+    CHECKBOX_SELECTED: 'checkbox selected',
+    CHECKBOX_UNSELECTED: 'checkbox unselected',
     QUIT : 'quit',
     TRASH: 'trash'
 };
@@ -16,6 +17,20 @@ const customIcons = {
             <Path d="M17.3414 11.4446H13.4684V7.57169C13.4684 7.03721 13.0356 6.60342 12.5001 6.60342C11.9647 6.60342 11.5319 7.03721 11.5319 7.57169V11.4446H7.65894C7.12349 11.4446 6.69067 11.8784 6.69067 12.4129C6.69067 12.9474 7.12349 13.3812 7.65894 13.3812H11.5319V17.2541C11.5319 17.7886 11.9647 18.2224 12.5001 18.2224C13.0356 18.2224 13.4684 17.7886 13.4684 17.2541V13.3812H17.3414C17.8768 13.3812 18.3096 12.9474 18.3096 12.4129C18.3096 11.8784 17.8768 11.4446 17.3414 11.4446Z" fill="#EB5757"/>
         </Svg>
     ),
+
+    [customIconLabels.CHECKBOX_SELECTED] : (
+        <Svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <Rect width="30" height="30" rx="8" fill="#EB5757"/>
+            <Path d="M9 13.5L11.414 17.9257C11.7168 18.4808 12.4524 18.6191 12.936 18.2118L21.5 11" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </Svg>
+    ),
+
+    [customIconLabels.CHECKBOX_UNSELECTED] : (
+        <Svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <Rect width="30" height="30" rx="8" fill="#EB5757"/>
+        </Svg>
+    ),
+
     [customIconLabels.QUIT] : (
         <Svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
             <Path d="M12.5 25C5.60722 25 0 19.3928 0 12.5C0 5.60722 5.60722 0 12.5 0C19.3928 0 25 5.60722 25 12.5C25 19.3928 19.3928 25 12.5 25ZM12.5 1.5625C6.46877 1.5625 1.5625 6.46877 1.5625 12.5C1.5625 18.5312 6.46877 23.4375 12.5 23.4375C18.5312 23.4375 23.4375 18.5312 23.4375 12.5C23.4375 6.46877 18.5312 1.5625 12.5 1.5625Z" fill="#EB5757"/>

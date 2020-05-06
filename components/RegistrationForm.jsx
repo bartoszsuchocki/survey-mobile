@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
     registerButton: {
         alignSelf: 'center',
         backgroundColor: styleConsts.SECONDARY_COLOR,
+        borderColor: styleConsts.SECONDARY_COLOR,
         height: 50
     },
 

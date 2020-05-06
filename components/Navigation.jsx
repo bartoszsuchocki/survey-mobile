@@ -7,11 +7,11 @@ import Home from './Home';
 import PrepareSurveyForm from './PrepareSurveyScreen';
 import SelectSurveys from './SelectSurveys';
 import labels from '../utils/labels';
-import SurveyView from './SurveyView';
 import LoginForm from './LoginForm';
 import RegistrationForm from './RegistrationForm';
 import ShowSurveyScreen from './ShowSurveyScreen';
 import FillSurveyScreen from './FillSurveyScreen';
+import SurveyResultsScreen from './SurveyResultsScreen';
 
 export const REGISTRATION_SCREEN = {
   component: RegistrationForm,
@@ -69,6 +69,13 @@ export const FILL_SURVEY_SCREEN = {
   title: labels.FILL_SURVEY
 }
 
+export const SURVEY_RESULTS_SCREEN = {
+    component: SurveyResultsScreen, 
+    displayOnMenuList: false, 
+    route: 'result', 
+    title: labels.RESULTS
+}
+
 export const NAVIGATION_ITEMS = [
     LOGIN_SCREEN,
     REGISTRATION_SCREEN,
@@ -77,7 +84,8 @@ export const NAVIGATION_ITEMS = [
     SELECT_SURVEYS_SCREEN,
     LOG_OUT_SCREEN,
     SHOW_SURVEY_SCREEN,
-    FILL_SURVEY_SCREEN
+    FILL_SURVEY_SCREEN,
+    SURVEY_RESULTS_SCREEN
 ];
 
 const Stack = createStackNavigator();
@@ -113,7 +121,7 @@ const Header = ({ navigation, previous, scene }) => {
 
 const styles = StyleSheet.create({
   header: {
-    height: 70,
+    height: 90,
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",

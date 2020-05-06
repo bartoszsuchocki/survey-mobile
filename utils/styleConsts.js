@@ -17,7 +17,7 @@ export const commonStyles = {
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: styleConsts.TILE_BACKGROUND_COLOR,
-        borderColor: styleConsts.SECONDARY_COLOR,
+        borderColor: "#FFF",
         borderWidth: 1,
         borderRadius: 4,
     },

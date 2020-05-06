@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
     loginButton: {
         alignSelf: 'center',
         backgroundColor: styleConsts.SECONDARY_COLOR,
+        borderColor: styleConsts.SECONDARY_COLOR,
         height: 50
     },
 
