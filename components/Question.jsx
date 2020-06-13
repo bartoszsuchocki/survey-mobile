@@ -15,7 +15,7 @@ export default ({onEdit, onRemove, question}) => {
     const editAnswer = (number, newContent) => {
         const answers = question.answers.map(answer => (
             answer.number === number
-                ? {...answer, content: newContent}
+                ? {...answer, text: newContent}
                 : answer
         ));
         onEdit({...question, answers});
@@ -24,7 +24,7 @@ export default ({onEdit, onRemove, question}) => {
     const removeAnswer = (answerNumber) => {
         const answers = question.answers
             .filter(answer => answer.number !== answerNumber)
-            .map((answer, index) => ({...answer, number: index}));
+            .map((answer, index) => ({...answer, number: index + 1}));
 
         onEdit({...question, answers})
     }
@@ -39,9 +39,9 @@ export default ({onEdit, onRemove, question}) => {
             </View>
             <STextArea
                 label={labels.QUESTION}
-                onChangeText={text => onEdit({...question, content: text})}
+                onChangeText={text => onEdit({...question, text})}
                 style={styles.content}
-                value={question.content}
+                value={question.text}
             />
             {question.answers && question.answers.map(answer => (
                 <Answer
@@ -64,7 +64,7 @@ const Answer = ({answer, onEdit, onRemove}) => (
         <STextInput
             onChangeText={onEdit}
             style={styles.answerInput}
-            value={answer.content}
+            value={answer.text}
         />
         <CustomIcon 
             iconLabel={customIconLabels.TRASH}

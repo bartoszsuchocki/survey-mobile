@@ -1,82 +1,48 @@
-import React from 'react';
-import { FlatList, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
 import Background from './Background';
 import Survey from './SurveyTile';
 import { SHOW_SURVEY_SCREEN, FILL_SURVEY_SCREEN, SURVEY_RESULTS_SCREEN } from './Navigation';
-
-//BARTDBG change that mocks while later development
-const surveys = [
-    {
-        title: 'Some super survey on peoples hobbies',
-        description: 'This survey will check which hobby is the most popular through people in our country',
-        questions: [
-            {id: 'qsomeid0', number: 0, content: 'Which of those activities?', answers: [
-                {id: 'asomeid0', number: 0, content: 'Sport'},
-                {id: 'asomeid1', number: 1, content: 'Reading books'},
-                {id: 'asomeid2', number: 2, content: 'Laying on the sofa'},
-            ]},
-            {id: 'qsomeid1', number: 1, content: 'Who is your best travel partner?', answers: [
-                {id: 'asomeid4', number: 0, content: 'Wife'},
-                {id: 'asomeid5', number: 1, content: 'Best friend'},
-                {id: 'asomeid6', number: 2, content: 'Strangers'},
-            ]}
-        ],
-        startDate: '22.01.2020'
-    },
-    {
-        title: 'Some super survey on peoples hobbies2',
-        description: 'This survey will check which hobby is the most popular through people in our country',
-        questions: [],
-        startDate: '22.01.2020'
-    },
-    {
-        title: 'Some super survey on peoples hobbies3',
-        description: 'This survey will check which hobby is the most popular through people in our country',
-        questions: [],
-        startDate: '22.01.2020'
-    },
-    {
-        title: 'Some super survey on peoples hobbies4',
-        description: 'This survey will check which hobby is the most popular through people in our country',
-        questions: [],
-        startDate: '22.01.2020'
-    }
-];
-
-const surveyResult = {
-    title: 'Some super survey on peoples hobbies',
-    description: 'This survey will check which hobby is the most popular through people in our country',
-    questions: [
-        {id: 'qsomeid0', number: 0, content: 'Which of those activities?', answers: [
-            {id: 'asomeid0', number: 0, content: 'Sport', selectionsPercent: 21},
-            {id: 'asomeid1', number: 1, content: 'Reading books', selectionsPercent: 55},
-            {id: 'asomeid2', number: 2, content: 'Laying on the sofa', selectionsPercent: 24},
-        ]},
-        {id: 'qsomeid1', number: 1, content: 'Who is your best travel partner?', answers: [
-            {id: 'asomeid4', number: 0, content: 'Wife', selectionsPercent: 20},
-            {id: 'asomeid5', number: 1, content: 'Best friend', selectionsPercent: 30},
-            {id: 'asomeid6', number: 2, content: 'Strangers', selectionsPercent: 50},
-        ]},
-        {id: 'qsomeid1', number: 2, content: 'Who is your best travel partner?', answers: [
-            {id: 'asomeid4', number: 0, content: 'Wife', selectionsPercent: 20},
-            {id: 'asomeid5', number: 1, content: 'Best friend', selectionsPercent: 30},
-            {id: 'asomeid6', number: 2, content: 'Strangers', selectionsPercent: 50},
-        ]}
-    ],
-    startDate: '22.01.2020'
-}
+import { getSurveys, deleteSurvey } from '../api/api';
+import styleConsts, { commonStyles } from '../utils/styleConsts';
 
 export default ({navigation}) => {
+    const [surveys, setSurveys] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const fetchSurveys = () => {
+        setIsLoading(true);
+
+        getSurveys().then(response => {
+            setSurveys(response.data);
+        }).catch((error) => {
+            setSurveys([]);
+        }).finally(() => {
+           setIsLoading(false);
+        })
+    }
+
+    useEffect(() => {
+        fetchSurveys();
+    }, [])
+
     const handleSurveyView = (survey) => {
-        navigation.navigate(SHOW_SURVEY_SCREEN.route, {survey});
+        navigation.navigate(SHOW_SURVEY_SCREEN.route, {survey, onGoBack: fetchSurveys});
     }
 
     const handleShowResults = (survey) => {
-        navigation.navigate(SURVEY_RESULTS_SCREEN.route, {surveyResult})
+        navigation.navigate(SURVEY_RESULTS_SCREEN.route, {surveyId: survey.id});
     }
 
-    const handleSurveyDelete = (survey) => {
-        //todo
+    const handleSurveyDelete = (surveyId) => {
+        setIsLoading(true);
+
+        deleteSurvey(surveyId).then(() => {
+            fetchSurveys();
+        }).catch(() => {
+        }).finally(() => {
+            setIsLoading(false);
+        });
     }
 
     const handleFillRequest = (survey) => {
@@ -85,23 +51,28 @@ export default ({navigation}) => {
     
     return (
         <Background>
-            <FlatList
-                data={surveys}
-                keyExtractor={item => item.title + item.id}
-                renderItem={({item}) => (
-                    <Survey 
-                        onDelete={ () => handleSurveyDelete(item) }
-                        onFill={ () => handleFillRequest(item) }
-                        onShowResults={ () => handleShowResults(item) }
-                        onView={ () => handleSurveyView(item) }
-                        survey={item} 
-                    />
-                ) }
-            />
+            {isLoading
+            ? (
+                <View style={commonStyles.loaderContainer}>
+                    <ActivityIndicator size={'large'} color={styleConsts.SECONDARY_COLOR} />
+                </View>
+            )
+            : (
+                <FlatList
+                    data={surveys}
+                    keyExtractor={item => item.id.toString()}
+                    renderItem={({item}) => (
+                        <Survey 
+                            onDelete={ () => handleSurveyDelete(item.id) }
+                            onFill={ () => handleFillRequest(item) }
+                            onShowResults={ () => handleShowResults(item) }
+                            onView={ () => handleSurveyView(item) }
+                            survey={item} 
+                        />
+                    ) }
+                />
+            )}
+            
         </Background>
     )
 }
-
-const styles = StyleSheet.create({
-   
-})

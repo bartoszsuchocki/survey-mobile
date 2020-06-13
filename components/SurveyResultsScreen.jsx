@@ -1,34 +1,61 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Background from './Background';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import styleConsts from '../utils/styleConsts';
+import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native';
+import styleConsts, { commonStyles } from '../utils/styleConsts';
+import { getSurveyResult } from '../api/api';
 
 export default ({route}) => {
+
+    const [surveyResult, setSurveyResult] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        getSurveyResult(route.params.surveyId).then((response) => {
+            setSurveyResult(response.data);
+        }).catch(()=>{
+        }).finally(() => {
+            setIsLoading(false);
+        })
+    }, []);
+
     return (
         <Background>
-            <SurveyResultDisplay surveyResult={route.params.surveyResult} />
+            {isLoading
+            ? (
+                <View style={commonStyles.loaderContainer}>
+                    <ActivityIndicator size={'large'} color={styleConsts.SECONDARY_COLOR}/>
+                </View>
+            )
+            : (
+                <SurveyResultDisplay surveyResult={surveyResult}/>
+            )}
         </Background>
     )
 }
 
 const SurveyResultDisplay = ({surveyResult}) => {
+    
+    const getAnswerRespondPercentage = (question, answer) => (
+        (answer.numberOfRespondents / question.totalNumberOfRespondents) * 100
+    ).toFixed(2);
+    
     return (
         <ScrollView style={styles.container}>
             {surveyResult.questions && surveyResult.questions.map(question => (
                 <View 
                     key={'qst'+question.number}
                 >
-                    <Text style={styles.questionText}>{question.content}</Text>
+                    <Text style={styles.questionText}>{question.questionText}</Text>
                     <View style={styles.answersContainer}>
                     {question.answers.map(answer => (
                         <View 
                             key={'asw' + answer.number}
                             style={styles.answer}
                         >   
-                            <Text style={styles.answerContent}>{answer.content}</Text>
+                            <Text style={styles.answerContent}>{answer.answerText}</Text>
                             <View style={styles.answerStatistics}>
-                                <View style={[styles.answerBar, {width: answer.selectionsPercent+'%'}]}/>
-                                <Text style={styles.answerPercentage}>{answer.selectionsPercent+'%'}</Text>
+                                <View style={[styles.answerBar, {width: getAnswerRespondPercentage(question, answer)+'%'}]}/>
+                                <Text style={styles.answerRespondCount}>{answer.numberOfRespondents}</Text>
                             </View>
                         </View>
                     ))}
@@ -68,7 +95,7 @@ const styles = StyleSheet.create({
         marginBottom: 15
     },
 
-    answerPercentage: {
+    answerRespondCount: {
         color: styleConsts.FONT_PRIMARY_COLOR,
         marginLeft: 5
     },

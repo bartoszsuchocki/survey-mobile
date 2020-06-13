@@ -36,4 +36,11 @@ export const commonStyles = {
         fontSize: 16,
         lineHeight: 21
     },
+
+    loaderContainer: {
+        height: '100%',
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
 }

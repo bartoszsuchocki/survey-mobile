@@ -3,10 +3,14 @@ import Background from './Background';
 import SurveyView from './SurveyView';
 import { createEmptySurvey } from '../utils/emptyObjectsGenerator';
 
-export default () => {
+export default ({navigation}) => {
     return (
         <Background>
-            <SurveyView survey={createEmptySurvey()}/>
+            <SurveyView 
+                onCancel={() => navigation.goBack()}
+                onSave={() => navigation.goBack()}
+                survey={createEmptySurvey()}
+            />
         </Background>
     )
 }

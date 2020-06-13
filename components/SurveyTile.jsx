@@ -3,21 +3,26 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import labels from '../utils/labels';
 import styleConsts, {commonStyles} from '../utils/styleConsts';
 
-export default ({adminVersion=false, onDelete, onFill, onShowResults, onView, survey}) => {
+export default ({adminVersion=true, onDelete, onFill, onShowResults, onView, survey}) => {
+    const questionsNumber = survey.questions.length;
     return (
         <View style={styles.surveysContainer}>
             <View style={styles.survey}>
                 <View style={styles.header}>
-                    <Text style={styles.surveyTitle}>{survey.title}</Text>
+                    <Text style={styles.surveyTitle}>{survey.name}</Text>
                 </View>
                 <View style={styles.propertiesContainer}>
                     <View style={styles.property}>
                         <Text style={styles.propertyName}>{labels.QUESTIONS}</Text>
-                        <Text style={styles.propertyValue}>{survey.questionsNumber}</Text>
+                        <Text style={styles.propertyValue}>{questionsNumber}</Text>
                     </View>
                     <View style={styles.property}>
                         <Text style={styles.propertyName}>{labels.START_DATE}</Text>
                         <Text style={styles.propertyValue}>{survey.startDate}</Text>
+                    </View>
+                    <View style={styles.property}>
+                        <Text style={styles.propertyName}>{labels.END_DATE}</Text>
+                        <Text style={styles.propertyValue}>{survey.endDate}</Text>
                     </View>
                     <View>
                         <Text style={styles.propertyName}>{labels.DESCRIPTION}</Text>
@@ -49,7 +54,7 @@ const AdminButtonPanel = ({onDelete, onShowResults, onView, style}) => (
             onPress={onView}
             style={[commonStyles.button, commonStyles.buttonSmall, commonStyles.buttonInversed]}
         >
-            <Text style={commonStyles.buttonText}>{labels.VIEW}</Text>
+            <Text style={commonStyles.buttonText}>{labels.EDIT}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity 

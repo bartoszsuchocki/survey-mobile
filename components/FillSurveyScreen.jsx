@@ -1,23 +1,27 @@
 import React, {useState} from 'react';
 import Background from './Background';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native';
 import styleConsts, { commonStyles } from '../utils/styleConsts';
 import { CustomIcon, customIconLabels } from './common/CustomIcon';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import labels from '../utils/labels';
+import { postSurveyResult } from '../api/api';
 
-export default ({route}) => {
+export default ({route, navigation}) => {
     return (
         <Background>
-            <SurveyFillManager survey={route.params.survey}/>
+            <SurveyFillManager 
+                onSubmit={() => navigation.goBack()}
+                survey={route.params.survey}
+            />
         </Background>
     )
 }
 
-const SurveyFillManager = ({survey: propsSurvey}) => {
+const SurveyFillManager = ({onSubmit, survey: propsSurvey}) => {
     const [survey, setSurvey] = useState(propsSurvey);
+    const [isLoading, setIsLoading] = useState(false);
 
-    //BARTDBG consider changing this logic to operate on ids not 'numbers'
     const changeAnswerSelection = (question, answerNumber) => {
         const answers = question.answers.map(answer => {
             const isSelected = answer.number === answerNumber
@@ -29,7 +33,6 @@ const SurveyFillManager = ({survey: propsSurvey}) => {
     }
 
     const handleAnswerClick = (questionNumber, answerNumber) => {
-        
         const updatedQuestions = survey.questions.map(question => (
             question.number === questionNumber
                 ? changeAnswerSelection(question, answerNumber)
@@ -39,41 +42,74 @@ const SurveyFillManager = ({survey: propsSurvey}) => {
         setSurvey({...survey, questions: updatedQuestions});
     }
 
-    return (
-        <ScrollView style={styles.formContainer}>
-            {survey.questions && survey.questions.map(question => (
-                <View 
-                    key={'qst'+question.number}
-                >
-                    <Text style={styles.questionText}>{question.content}</Text>
-                    <View style={styles.answersContainer}>
-                    {question.answers && question.answers.map(answer => (
-                        <TouchableOpacity 
-                            onPress={() => handleAnswerClick(question.number, answer.number)}
-                            key={'asw' + question.number + answer.number}>
-                            <View style={styles.answer}>
-                                <CustomIcon 
-                                    iconLabel={answer.isSelected 
-                                        ? customIconLabels.CHECKBOX_SELECTED
-                                        : customIconLabels.CHECKBOX_UNSELECTED
-                                    } 
-                                />
-                                <Text style={styles.answerContent}>{answer.content}</Text>
-                            </View>
-                        </TouchableOpacity>
-                        
-                    ))}
-                    </View>
-                </View>
-            ))}
+    const prepareSurveyReply = (survey) => {
+        const questions = survey.questions.map(question => ({
+            number: question.number,
+            chosenAnswer: question.answers.find(answer => answer.isSelected).number
+        }));
 
-            <TouchableOpacity 
-                style={[commonStyles.button, styles.submitButton]}
-            >
-                <Text style={commonStyles.buttonText}>{labels.SUBMIT}</Text>
-            </TouchableOpacity>
-            
-        </ScrollView>
+        return {
+            id: survey.id,
+            questions
+        }
+    }
+
+    const submit = () => {
+        setIsLoading(true);
+
+        postSurveyResult(prepareSurveyReply(survey)).then(() => {
+            onSubmit();
+            setIsLoading(false);
+        });
+    }
+
+    return (
+        <>
+        {isLoading
+            ? (
+                <View style={commonStyles.loaderContainer}>
+                    <ActivityIndicator size={'large'} color={styleConsts.SECONDARY_COLOR} />
+                </View>
+            )
+            : (
+                <ScrollView style={styles.formContainer}>
+                    {survey.questions && survey.questions.map(question => (
+                        <View 
+                            key={'qst'+question.number}
+                        >
+                            <Text style={styles.questionText}>{question.text}</Text>
+                            <View style={styles.answersContainer}>
+                            {question.answers && question.answers.map(answer => (
+                                <TouchableOpacity 
+                                    onPress={() => handleAnswerClick(question.number, answer.number)}
+                                    key={'asw' + question.number + answer.number}>
+                                    <View style={styles.answer}>
+                                        <CustomIcon 
+                                            iconLabel={answer.isSelected 
+                                                ? customIconLabels.CHECKBOX_SELECTED
+                                                : customIconLabels.CHECKBOX_UNSELECTED
+                                            } 
+                                        />
+                                        <Text style={styles.answerContent}>{answer.text}</Text>
+                                    </View>
+                                </TouchableOpacity>
+                                
+                            ))}
+                            </View>
+                        </View>
+                    ))}
+
+                    <TouchableOpacity 
+                        onPress={submit}
+                        style={[commonStyles.button, styles.submitButton]}
+                    >
+                        <Text style={commonStyles.buttonText}>{labels.SUBMIT}</Text>
+                    </TouchableOpacity>
+                    
+                </ScrollView>
+            )
+        }
+        </>
     );
 }
 
