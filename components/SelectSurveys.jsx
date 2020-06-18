@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
 import Background from './Background';
 import Survey from './SurveyTile';
 import { SHOW_SURVEY_SCREEN, FILL_SURVEY_SCREEN, SURVEY_RESULTS_SCREEN } from './Navigation';
 import { getSurveys, deleteSurvey } from '../api/api';
 import styleConsts, { commonStyles } from '../utils/styleConsts';
+import { UserContext } from '../utils/userContextHelper';
 
 export default ({navigation}) => {
     const [surveys, setSurveys] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+
+    const {user} = useContext(UserContext)
 
     const fetchSurveys = () => {
         setIsLoading(true);
@@ -63,6 +66,7 @@ export default ({navigation}) => {
                     keyExtractor={item => item.id.toString()}
                     renderItem={({item}) => (
                         <Survey 
+                            adminVersion={user.isCoordinator}
                             onDelete={ () => handleSurveyDelete(item.id) }
                             onFill={ () => handleFillRequest(item) }
                             onShowResults={ () => handleShowResults(item) }
@@ -72,7 +76,6 @@ export default ({navigation}) => {
                     ) }
                 />
             )}
-            
         </Background>
     )
 }

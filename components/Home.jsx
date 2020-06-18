@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import Background from './Background';
 import { NAVIGATION_ITEMS } from './Navigation';
+import { UserContext } from '../utils/userContextHelper';
 
 export default ({navigation}) => {
+
+    const {user} = useContext(UserContext);
+
     const renderNavigationItem = item => {
         return (
             <View>
@@ -17,7 +21,9 @@ export default ({navigation}) => {
         );
     }
 
-    const menuItems = NAVIGATION_ITEMS.filter(item => item.displayOnMenuList);
+    const menuItems = NAVIGATION_ITEMS.filter(item => (
+        item.displayOnMenuList && (!item.adminOnly || user.isCoordinator)
+    ));
 
     return (
         <Background>

@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
@@ -12,6 +12,15 @@ import RegistrationForm from './RegistrationForm';
 import ShowSurveyScreen from './ShowSurveyScreen';
 import FillSurveyScreen from './FillSurveyScreen';
 import SurveyResultsScreen from './SurveyResultsScreen';
+import { UserContext } from '../utils/userContextHelper';
+import TermsAndConditions from './TermsAndConditions';
+
+export const TERMS_CONDITIONS_SCREEN = {
+  component: TermsAndConditions,
+  displayOnMenuList: true,
+  route: 'termsCondition',
+  title: labels.TERMS_CONDITIONS
+}
 
 export const REGISTRATION_SCREEN = {
   component: RegistrationForm,
@@ -35,6 +44,7 @@ export const HOME_SCREEN = {
 }
 
 export const ADD_SURVEY_SCREEN = {
+    adminOnly: true,
     component: PrepareSurveyForm, 
     displayOnMenuList: true, 
     route: 'newSurvey', 
@@ -82,6 +92,7 @@ export const NAVIGATION_ITEMS = [
     HOME_SCREEN,
     ADD_SURVEY_SCREEN,
     SELECT_SURVEYS_SCREEN,
+    TERMS_CONDITIONS_SCREEN,
     LOG_OUT_SCREEN,
     SHOW_SURVEY_SCREEN,
     FILL_SURVEY_SCREEN,
@@ -91,10 +102,14 @@ export const NAVIGATION_ITEMS = [
 const Stack = createStackNavigator();
 
 export default () => {
+
+  const {user} = useContext(UserContext);
+
   return (
     <NavigationContainer>
         <Stack.Navigator
             headerMode="float"
+            initialRouteName={user.email ? HOME_SCREEN.route : LOGIN_SCREEN.route}
             screenOptions={{header: Header}}
         >
             { NAVIGATION_ITEMS.map(item => (

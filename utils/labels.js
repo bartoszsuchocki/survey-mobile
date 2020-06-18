@@ -29,6 +29,7 @@ const labels = {
     SUBMIT: 'Submit',
     SURVEY: 'Survey',
     SURVEYS: 'Surveys',
+    TERMS_CONDITIONS: 'Terms And Conditions',
     TITLE: 'Title',
     VIEW: 'View',
     WELCOME_MESSAGE: 'Welcome to the SurveyApp'

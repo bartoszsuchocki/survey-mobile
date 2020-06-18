@@ -14,14 +14,14 @@ export default ({onCancel, onSave, survey: propsSurvey}) => {
 
     const editQuestion = (editedQuestion) => {
         const questions = [...survey.questions];
-        questions[editedQuestion.number - 1] = editedQuestion;
+        questions[editedQuestion.number] = editedQuestion;
         setSurvey({...survey, questions});
     };
 
     const removeQuestion = (questionNumber) => {
         const questions = survey.questions
             .filter(question => question.number !== questionNumber)
-            .map((question, index) => ({...question, number: index + 1}));
+            .map((question, index) => ({...question, number: index}));
         
         setSurvey({...survey, questions});
     }
@@ -41,7 +41,7 @@ export default ({onCancel, onSave, survey: propsSurvey}) => {
             onSave();
         })
     }
-
+    
     return (
         <>
         {isLoading 

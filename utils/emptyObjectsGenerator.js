@@ -1,6 +1,6 @@
 const DEFAULT_SURVEY_DURATION = 10;
 
-const dateToText = date => `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+const dateToText = date => `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
 
 export const createEmptySurvey = () => {
     const today = new Date();

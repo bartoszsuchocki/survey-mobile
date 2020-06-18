@@ -54,7 +54,7 @@ const SurveyResultDisplay = ({surveyResult}) => {
                         >   
                             <Text style={styles.answerContent}>{answer.answerText}</Text>
                             <View style={styles.answerStatistics}>
-                                <View style={[styles.answerBar, {width: getAnswerRespondPercentage(question, answer)+'%'}]}/>
+                                <View style={[styles.answerBar, {width: getAnswerRespondPercentage(question, answer) - 5+'%'}]}/>
                                 <Text style={styles.answerRespondCount}>{answer.numberOfRespondents}</Text>
                             </View>
                         </View>
