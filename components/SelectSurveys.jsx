@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
-import Background from './Background';
+import Background from './common/Background';
 import Survey from './SurveyTile';
 import { SHOW_SURVEY_SCREEN, FILL_SURVEY_SCREEN, SURVEY_RESULTS_SCREEN } from './Navigation';
 import { getSurveys, deleteSurvey } from '../api/api';

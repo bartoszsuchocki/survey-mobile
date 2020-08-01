@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Background from './Background';
+import Background from './common/Background';
 import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native';
 import styleConsts, { commonStyles } from '../utils/styleConsts';
 import { getSurveyResult } from '../api/api';
