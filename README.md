@@ -1,4 +1,4 @@
-# survey-app
+# survey-mobile - Survey Management App
 Mobile version of survey management app allowing CRUD operations on surveys (as a coordinator user), filling them (respondent user) and displaying results 
 as well as creating accounts and authenticating.    
 
