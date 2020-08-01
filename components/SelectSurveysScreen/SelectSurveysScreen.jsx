@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
-import Background from './common/Background';
-import Survey from './SurveyTile';
-import { SHOW_SURVEY_SCREEN, FILL_SURVEY_SCREEN, SURVEY_RESULTS_SCREEN } from './Navigation';
-import { getSurveys, deleteSurvey } from '../api/api';
-import styleConsts, { commonStyles } from '../utils/styleConsts';
-import { UserContext } from '../utils/userContextHelper';
+import { ActivityIndicator, FlatList, View } from 'react-native';
+import Background from '../common/Background/Background';
+import Survey from './SurveyTile/SurveyTile';
+import { SHOW_SURVEY_SCREEN, FILL_SURVEY_SCREEN, SURVEY_RESULTS_SCREEN } from '../Navigation/Navigation';
+import { getSurveys, deleteSurvey } from '../../api/api';
+import styleConsts, { commonStyles } from '../../utils/styleConsts';
+import { UserContext } from '../../utils/userContextHelper';
 
 export default ({navigation}) => {
     const [surveys, setSurveys] = useState([]);

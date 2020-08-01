@@ -3,17 +3,18 @@ import React, { useEffect, useContext } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
-import Home from './Home';
-import PrepareSurveyForm from './PrepareSurveyScreen';
-import SelectSurveys from './SelectSurveys';
-import labels from '../utils/labels';
+import Home from '../HomeScreen/Home';
+import PrepareSurveyForm from '../PrepareSurveyScreen/PrepareSurveyScreen';
+import SelectSurveys from '../SelectSurveysScreen/SelectSurveysScreen';
+import labels from '../../utils/labels';
 import LoginForm from './LoginForm';
-import RegistrationForm from './RegistrationForm';
-import ShowSurveyScreen from './ShowSurveyScreen';
-import FillSurveyScreen from './FillSurveyScreen';
-import SurveyResultsScreen from './SurveyResultsScreen';
-import { UserContext } from '../utils/userContextHelper';
-import TermsAndConditions from './TermsAndConditions';
+import RegistrationForm from '../RegistrationForm/RegistrationForm';
+import ShowSurveyScreen from '../ShowSurveyScreen/ShowSurveyScreen';
+import FillSurveyScreen from '../FillSurveyScreen/FillSurveyScreen';
+import SurveyResultsScreen from '../SurveyResultsScreen/SurveyResultsScreen';
+import { UserContext } from '../../utils/userContextHelper';
+import TermsAndConditions from '../TermsAndConditions/TermsAndConditions';
+import styles from './Navigation.styles.js';
 
 export const TERMS_CONDITIONS_SCREEN = {
   component: TermsAndConditions,
@@ -133,24 +134,4 @@ const Header = ({ navigation, previous, scene }) => {
       </View>
     )
 }
-
-const styles = StyleSheet.create({
-  header: {
-    height: 90,
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#2F303A",
-    paddingTop: 10
-  },
-
-  headerTitle: {
-    color: "#EB5757",
-    fontWeight: "bold",
-    fontSize: 18,
-    lineHeight: 21,
-    textAlign: "center",
-    textTransform: "uppercase"
-  }
-});
 

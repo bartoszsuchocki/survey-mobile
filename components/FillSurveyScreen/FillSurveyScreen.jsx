@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-import Background from './Background';
+import Background from '../common/Background/Background';
 import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native';
-import styleConsts, { commonStyles } from '../utils/styleConsts';
-import { CustomIcon, customIconLabels } from './common/CustomIcon';
+import styleConsts, { commonStyles } from '../../utils/styleConsts';
+import { CustomIcon, customIconLabels } from '../common/CustomIcon/CustomIcon';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import labels from '../utils/labels';
-import { postSurveyResult } from '../api/api';
+import labels from '../../utils/labels';
+import { postSurveyResult } from '../../api/api';
+import styles from './FillSurveyScreen.style.js'
 
 export default ({route, navigation}) => {
     return (
@@ -112,45 +113,3 @@ const SurveyFillManager = ({onSubmit, survey: propsSurvey}) => {
         </>
     );
 }
-
-
-
-const styles = StyleSheet.create({
-    
-    answer: {
-        flexDirection: 'row',
-        margin: 5,
-        alignItems: 'center'
-    },
-
-    answersContainer: {
-        marginVertical: 15
-    },
-
-    answerContent: {
-        fontSize: 14,
-        lineHeight: 24,
-        color: styleConsts.FONT_PRIMARY_COLOR,
-        marginLeft: 15
-    },
-
-    formContainer: {
-        marginHorizontal: 30,
-        marginTop: 40,
-        marginBottom: 20,
-    },
-
-    questionText: {
-        color: styleConsts.FONT_PRIMARY_COLOR,
-        fontStyle: 'normal',
-        fontWeight: 'bold',
-        fontSize: 18,
-        lineHeight: 20
-    },
-
-    submitButton: {
-        alignSelf: 'center',
-        marginTop: 15
-
-    }
-});

@@ -1,7 +1,7 @@
 import React from 'react';
-import Background from './Background';
-import SurveyView from './SurveyView';
-import { createEmptySurvey } from '../utils/emptyObjectsGenerator';
+import Background from '../common/Background/Background';
+import SurveyView from '../common/SurveyView/SurveyView';
+import { createEmptySurvey } from '../../utils/emptyObjectsGenerator';
 
 export default ({navigation}) => {
     return (

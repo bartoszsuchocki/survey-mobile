@@ -1,6 +1,6 @@
 import React from 'react';
-import SurveyView from './SurveyView';
-import Background from './Background';
+import SurveyView from '../common/SurveyView/SurveyView';
+import Background from '../common/Background/Background';
 
 export default ({ navigation, route }) => {
     const goBack = () => {

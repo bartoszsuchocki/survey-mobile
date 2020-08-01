@@ -1,9 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import labels from '../utils/labels';
-import styleConsts, {commonStyles} from '../utils/styleConsts';
+import { Text, TouchableOpacity, View } from 'react-native';
+import labels from '../../../utils/labels';
+import { commonStyles } from '../../../utils/styleConsts';
+import styles from './SurveyTile.style.js';
 
-export default ({adminVersion=true, onDelete, onFill, onShowResults, onView, survey}) => {
+export default ({adminVersion = false, onDelete, onFill, onShowResults, onView, survey}) => {
     const questionsNumber = survey.questions.length;
     return (
         <View style={styles.surveysContainer}>
@@ -90,70 +91,3 @@ const StandardButtonPanel = ({onFill, onShowResults, style}) => (
         </TouchableOpacity>
     </View>
 );
-
-const styles = StyleSheet.create({
-    
-    actionButtons: {
-        flexDirection: "row",
-        justifyContent: "space-evenly",
-        marginVertical: 30
-    },
-    
-    header: {
-        marginVertical: 15,
-        marginHorizontal: 20,
-        flexDirection: "row"
-    },
-
-    propertiesContainer: {
-        marginHorizontal: 20,
-    },
-
-    property: {
-        flexDirection: "row",
-        marginBottom: 5
-    },
-
-    propertyName: {
-        marginRight: 10,
-        fontSize: 14,
-        fontWeight: "bold",
-        lineHeight: 20,
-        color: styleConsts.FONT_PRIMARY_COLOR
-    },
-
-    propertyValue: {
-        fontSize: 14,
-        lineHeight: 20,
-        color: styleConsts.FONT_PRIMARY_COLOR
-    },
-
-    survey: {
-        opacity: 0.75,
-        width: "75%",
-        backgroundColor: styleConsts.TILE_BACKGROUND_COLOR,
-        borderColor: styleConsts.SECONDARY_COLOR,
-        borderRadius: 5,
-        borderWidth: 1,
-        marginBottom: 20,
-        shadowOffset: {width: 0, height: 10},
-        shadowColor: styleConsts.SHADOW_COLOR,
-        shadowOpacity: 0.5,
-        shadowRadius: 8,
-        elevation: 5
-    },
-
-    surveysContainer: {
-        alignItems: "center",
-        marginTop: 20
-    },
-
-    surveyTitle: {
-        fontSize: 16,
-        fontWeight: "bold",
-        lineHeight: 19,
-        color: styleConsts.FONT_PRIMARY_COLOR,
-        textAlign: "center"
-    }
-
-});

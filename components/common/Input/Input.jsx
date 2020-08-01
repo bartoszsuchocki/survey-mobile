@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import styleConsts from '../../utils/styleConsts';
-import { CustomIcon, customIconLabels } from './CustomIcon';
+import { Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { CustomIcon, customIconLabels } from '../CustomIcon/CustomIcon';
+import styles from './Input.style.js';
 
 export const STextInput = (props) => (
     <View style={props.style}>
@@ -54,32 +54,4 @@ export const SCheckBox = ({checked, label, onChange, style}) => (
             />
         </TouchableOpacity>
     </View>
-)
-
-
-
-const styles = StyleSheet.create({
-    
-    label: {
-        fontSize: 14,
-        color: styleConsts.FONT_PRIMARY_COLOR,
-    },
-    
-    textInput: {
-        backgroundColor: styleConsts.INPUT_BACKGROUND_COLOR,
-        color: styleConsts.FONT_PRIMARY_COLOR,
-        borderColor: styleConsts.SECONDARY_COLOR,
-        borderWidth: 1,
-        borderRadius: 2,
-        height: 45
-    },
-
-    textArea: {
-        backgroundColor: styleConsts.INPUT_BACKGROUND_COLOR,
-        color: styleConsts.FONT_PRIMARY_COLOR,
-        borderColor: styleConsts.SECONDARY_COLOR,
-        borderWidth: 1,
-        borderRadius: 2,
-        minHeight: 100
-    }
-})
+);

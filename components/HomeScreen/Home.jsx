@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
-import Background from './Background';
-import { NAVIGATION_ITEMS } from './Navigation';
-import { UserContext } from '../utils/userContextHelper';
+import { FlatList, Text, View } from 'react-native';
+import Background from '../common/Background/Background';
+import { NAVIGATION_ITEMS } from '../Navigation/Navigation';
+import { UserContext } from '../../utils/userContextHelper';
+import styles from './Home.style.js';
 
 export default ({navigation}) => {
 
@@ -35,13 +36,3 @@ export default ({navigation}) => {
         </Background>
     )
 }
-
-const styles = StyleSheet.create({
-    navigationItemTitle: {
-        marginTop: 30, 
-        marginBottom: 15, 
-        color:"#FFF", 
-        fontSize:25, 
-        textAlign: "center"
-    }
-})

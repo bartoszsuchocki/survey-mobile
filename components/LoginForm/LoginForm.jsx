@@ -1,12 +1,13 @@
 import React, { useState, useContext } from 'react';
-import { STextInput } from './common/Inputs';
+import { STextInput } from '../common/Input/Input';
 import { ActivityIndicator, AsyncStorage, View, ScrollView, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import styleConsts, { commonStyles } from '../utils/styleConsts';
-import labels from '../utils/labels';
-import Background from './Background';
-import { HOME_SCREEN, REGISTRATION_SCREEN } from './Navigation';
-import { login } from '../api/api';
-import { UserContext } from '../utils/userContextHelper';
+import styleConsts, { commonStyles } from '../../utils/styleConsts';
+import labels from '../../utils/labels';
+import Background from '../common/Background/Background';
+import { HOME_SCREEN, REGISTRATION_SCREEN } from '../Navigation/Navigation';
+import { login } from '../../api/api';
+import { UserContext } from '../../utils/userContextHelper';
+import styles from './LoginForm.styles.js';
 
 export default ({navigation}) => {
 
@@ -26,7 +27,6 @@ export default ({navigation}) => {
             setPassword('');
             setIsLoading(false);
         });
-        
     }
 
     const goToRegistrationScreen = () => {
@@ -86,46 +86,3 @@ export default ({navigation}) => {
         </Background>
     )
 }
-
-const styles = StyleSheet.create({
-    input: {
-        marginVertical: 15
-    },
-
-    loginButton: {
-        alignSelf: 'center',
-        backgroundColor: styleConsts.SECONDARY_COLOR,
-        borderColor: styleConsts.SECONDARY_COLOR,
-        height: 50
-    },
-
-    loginPanel: {
-        backgroundColor: styleConsts.TILE_BACKGROUND_COLOR,
-        marginVertical: 30,
-        marginHorizontal: 20,
-        paddingHorizontal: 30,
-        paddingVertical: 30,
-        borderRadius: 5,
-        opacity: 0.7
-    },
-
-    registrationLink: {
-        fontSize: 16,
-        color: '#91CBF1',
-    },
-
-    registrationLinkContainer: {
-        alignSelf: 'flex-end',
-        marginTop: 30
-    },
-
-    title: {
-        alignSelf: 'center',
-        color: styleConsts.SECONDARY_COLOR,
-        fontWeight: "bold",
-        fontSize: 22,
-        lineHeight: 21,
-        textAlign: "center",
-        padding: 10
-    }
-})

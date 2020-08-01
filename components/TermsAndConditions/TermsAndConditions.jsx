@@ -1,6 +1,7 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import Background from './Background';
+import { ScrollView, Text } from 'react-native';
+import Background from '../common/Background/Background';
+import styles from './TermsAndConditions.styles.js';
 
 export default () => (
 <Background>
@@ -87,14 +88,3 @@ export default () => (
     </ScrollView>
 </Background>
 );
-
-const styles = StyleSheet.create({
-    container: {
-        padding: 10
-    },
-
-    strong: {
-        fontSize: 25, 
-        fontWeight: 'bold'
-    }
-})

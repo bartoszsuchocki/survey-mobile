@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-import { ActivityIndicator, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { STextInput, STextArea } from './common/Inputs';
-import Question from './Question';
-import labels from '../utils/labels';
-import styleConsts, { commonStyles} from '../utils/styleConsts';
-import { createEmptyQuestion } from '../utils/emptyObjectsGenerator';
-import { postSurvey, updateSurvey } from '../api/api';
+import { ActivityIndicator, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { STextInput, STextArea } from '../Input/Input';
+import Question from './Question/Question';
+import labels from '../../../utils/labels';
+import styleConsts, { commonStyles} from '../../../utils/styleConsts';
+import { createEmptyQuestion } from '../../../utils/emptyObjectsGenerator';
+import { postSurvey, updateSurvey } from '../../../api/api';
+import styles from './SurveyView.style.js';
 
 export default ({onCancel, onSave, survey: propsSurvey}) => {
     
@@ -107,34 +108,3 @@ export default ({onCancel, onSave, survey: propsSurvey}) => {
         </>
     );
 }
-
-const styles = StyleSheet.create({
-    formContainer: {
-        marginHorizontal: 30,
-        marginTop: 40,
-        marginBottom: 20,
-    },
-
-    input: {
-        marginBottom: 20
-    },
-
-    buttonsContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: 30
-    },
-
-    button: {
-        marginHorizontal: 12,
-    },
-
-    question: {
-        marginTop: 30
-    },
-
-    questionsContainer: {
-        marginBottom: 10
-    }
-});
